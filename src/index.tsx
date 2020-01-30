@@ -13,8 +13,8 @@ const App = () => (
   <>
     <GlobalStyle />
     <Spinner />
-    <Menu menuType={1} isFilter={true} isDivider={true} items={ownerMenuItems}  onChange={handleChange} />
-    <Menu menuType={2} items={normalMenuItems} onChange={handleChange} />
+    <Menu menuType={"mnu_owner"} isFilter={true} isDivider={true} items={ownerMenuItems}  onChange={handleChange} />
+    <Menu menuType={"mnu_status"} items={normalMenuItems} onChange={handleChange} />
   </>
 )
 

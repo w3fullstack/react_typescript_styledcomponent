@@ -3,31 +3,19 @@ import styled from 'styled-components'
 
 import { Colors } from '../lib/style-guide'
 import { classNames } from '../lib/classnames'
-import { randomClassName } from '../lib/rcn'
+import { User, MyStatus } from "../lib/common-types";
 
-export type User = {
-    id: number
-    avatar?: string
-    name: string
-    role?: string
-}
-
-export type MyStatus = {
-    id: number
-    name: string
-}
-
+export type MenuType = "mnu_owner" | "mnu_status";
 export type MenuItemData = User & MyStatus;
 
 export type MenuItemProps = {
     itemData: MenuItemData
     selected: boolean
-    menuType: number
+    menuType: MenuType
     onClick: () => void
 }
-
 export interface MenuProps {
-    menuType: number
+    menuType: MenuType
     isFilter?: boolean
     isDivider?: boolean
     items: MenuItemData[]
@@ -36,9 +24,9 @@ export interface MenuProps {
 
 const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, className}) => (
     <div className={selected ? classNames(className, "selected") : className} onClick={onClick}>
-        { menuType === 1 && <div className="avatar"></div> }
+        { menuType === "mnu_owner" && <div className="avatar"></div> }
         <div className="name">{itemData.name}</div>
-        { menuType === 1 && <div className="role">{itemData.role}</div> }
+        { menuType === "mnu_owner" && <div className="role">{itemData.role}</div> }
     </div>
 )
 
