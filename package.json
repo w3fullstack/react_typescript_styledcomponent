@@ -23,7 +23,8 @@
   },
   "scripts": {
     "build": "yarn lint && NODE_ENV=production parcel build src/index.html --no-cache",
-    "dev": "yarn clean && parcel src/index.html -p 3000",
+    "dev": "parcel src/index.html -p 3000",
+    "dev1": "yarn clean && parcel src/index.html -p 3000",
     "lint": "tsc --noEmit --skipLibCheck && eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0",
     "format": "eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0 --fix",
     "clean": "rm -rf .cache && rm -rf ./dist/* && mkdir -p ./dist"
