@@ -5,7 +5,7 @@ import { Colors } from '../lib/style-guide'
 import { classNames } from '../lib/classnames'
 import { randomClassName } from '../lib/rcn'
 
-const MenuItem: FC<MenuItemDataType> = ({itemData, selected, menuType, onClick, className}) => (
+const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, className}) => (
     <div className={selected ? classNames(className, "selected") : className} onClick={onClick}>
         { menuType === 1 && <div className="avatar"></div> }
         <div className="name">{itemData.name}</div>
@@ -14,11 +14,11 @@ const MenuItem: FC<MenuItemDataType> = ({itemData, selected, menuType, onClick, 
 )
 
 const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, className}) => {
-    const [selectedItem, setSelectedItem] = useState<MenuDataType | undefined>(undefined);
-    const [filteredValue, setFilteredValue] = useState<MenuDataType[]>(items);
+    const [selectedItem, setSelectedItem] = useState<MenuItemData | undefined>(undefined);
+    const [filteredValue, setFilteredValue] = useState<MenuItemData[]>(items);
     const [filter, setFilter] = useState<string>("");
 
-    const onSelect = (item: MenuDataType) => {
+    const onSelect = (item: MenuItemData) => {
         setSelectedItem(item); onChange && onChange(item)
     };
     const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
                 isDivider && <div className="divider" /> 
             }
             <div className="menu-body">
-                { filteredValue?.map((item: MenuDataType, index: number) => 
+                { filteredValue?.map((item: MenuItemData, index: number) => 
                     <StyledMenuItem 
                         key={index} 
                         itemData={item} 
