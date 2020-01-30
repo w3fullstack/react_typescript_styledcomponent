@@ -24,7 +24,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
     const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newFilter = e.target.value;
         setFilter(newFilter);
-        setFilteredValue(newFilter==="" ? items : items?.filter(item => item.name.indexOf(newFilter)>-1))
+        setFilteredValue(newFilter==="" ? items : items?.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
     }
     return (
         <div className={className}>
