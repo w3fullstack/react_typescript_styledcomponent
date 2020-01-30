@@ -5,6 +5,35 @@ import { Colors } from '../lib/style-guide'
 import { classNames } from '../lib/classnames'
 import { randomClassName } from '../lib/rcn'
 
+export type User = {
+    id: number
+    avatar?: string
+    name: string
+    role?: string
+}
+
+export type MyStatus = {
+    id: number
+    name: string
+}
+
+export type MenuItemData = User & MyStatus;
+
+export type MenuItemProps = {
+    itemData: MenuItemData
+    selected: boolean
+    menuType: number
+    onClick: () => void
+}
+
+export interface MenuProps {
+    menuType: number
+    isFilter?: boolean
+    isDivider?: boolean
+    items: MenuItemData[]
+    onChange?: (item: MenuItemData) => void
+}
+
 const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, className}) => (
     <div className={selected ? classNames(className, "selected") : className} onClick={onClick}>
         { menuType === 1 && <div className="avatar"></div> }

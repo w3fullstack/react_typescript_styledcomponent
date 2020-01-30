@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { GlobalStyle } from './global-style'
 import { Spinner } from './components/shared/spinner'
-import { Menu } from './components/menu'
+import { Menu, MenuItemData } from './components/menu'
 import { ownerMenuItems, normalMenuItems } from './lib/constant'
 
 console.info(`⚛️ ${React.version}`)
