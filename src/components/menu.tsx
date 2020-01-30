@@ -38,8 +38,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
     const onSelect = (item: MenuItemData) => {
         setSelectedItem(item); onChange && onChange(item)
     };
-    const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newFilter = e.target.value;
+    const onFilter = (newFilter: string) => {
         setFilter(newFilter);
         setFilteredValue(newFilter==="" ? items : items.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
     }
@@ -47,7 +46,8 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
         <div className={className}>
             {  isFilter &&
                 <div className="menu-header">
-                    <input type="text" placeholder="Filter by name" onChange={onFilter} value={filter} />
+                    <input type="text" placeholder="Filter by name" onChange={(e) => onFilter(e.target.value)} value={filter} />
+                    { filter !== "" && <div className="clear" onClick={()=>onFilter("")}><span>x</span></div> }
                 </div>
             } { 
                 isDivider && <div className="divider" /> 
@@ -79,6 +79,7 @@ const StyledMenu = styled(Menu)`
 
     .menu-header {
         padding: 16px 21px;
+        position: relative;
 
         input {
             font-family: 'Inter';
@@ -86,11 +87,28 @@ const StyledMenu = styled(Menu)`
             font-weight: normal;
             font-size: 14px;
             line-height: 20px;
+            padding-right: 10px;
             color: ${Colors.INPUT};
 
             &:focus {
                 outline: none;
             }
+            &::placeholder {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 20px;
+                color: ${Colors.INPUT};
+            }
+        }
+        .clear {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: ${Colors.INPUT};
         }
     }
     .divider {
