@@ -33,7 +33,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
                     <input type="text" placeholder="Filter by name" onChange={onFilter} value={filter} />
                 </div>
             } { 
-                isDivider && <div className="separator" /> 
+                isDivider && <div className="divider" /> 
             }
             <div className="menu-body">
                 { filteredValue?.map((item: MenuDataType, index: number) => 
