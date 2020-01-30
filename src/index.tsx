@@ -7,7 +7,7 @@ import { ownerMenuItems, normalMenuItems } from './lib/constant'
 
 console.info(`⚛️ ${React.version}`)
 
-const handleChange = (item: MenuDataType) => console.log(item)
+const handleChange = (item: MenuItemData) => console.log(item)
 
 const App = () => (
   <>

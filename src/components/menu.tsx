@@ -24,7 +24,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
     const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newFilter = e.target.value;
         setFilter(newFilter);
-        setFilteredValue(newFilter==="" ? items : items?.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
+        setFilteredValue(newFilter==="" ? items : items.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
     }
     return (
         <div className={className}>
@@ -36,7 +36,7 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
                 isDivider && <div className="divider" /> 
             }
             <div className="menu-body">
-                { filteredValue?.map((item: MenuItemData, index: number) => 
+                { filteredValue.map((item: MenuItemData, index: number) => 
                     <StyledMenuItem 
                         key={index} 
                         itemData={item} 
