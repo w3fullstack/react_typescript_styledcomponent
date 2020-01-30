@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { GlobalStyle } from './global-style'
 import { Spinner } from './components/shared/spinner'
 import { Menu, MenuItemData } from './components/menu'
-import { ownerMenuItems, normalMenuItems } from './lib/constant'
+import { ownerMenuItems, statusMenuItems } from './lib/constant'
 
 console.info(`⚛️ ${React.version}`)
 
@@ -13,8 +13,8 @@ const App = () => (
   <>
     <GlobalStyle />
     <Spinner />
-    <Menu menuType={"mnu_owner"} isFilter={true} isDivider={true} items={ownerMenuItems}  onChange={handleChange} />
-    <Menu menuType={"mnu_status"} items={normalMenuItems} onChange={handleChange} />
+    <Menu menuType={"mnu_owner"} isFilter={true} items={ownerMenuItems}  onChange={handleChange} />
+    <Menu menuType={"mnu_status"} items={statusMenuItems} onChange={handleChange} />
   </>
 )
 

@@ -17,9 +17,19 @@ export type MenuItemProps = {
 export interface MenuProps {
     menuType: MenuType
     isFilter?: boolean
-    isDivider?: boolean
     items: MenuItemData[]
     onChange?: (item: MenuItemData) => void
+}
+export interface MenuHeaderProps {
+    isFilter?: boolean
+    filter: string
+    onFilter: (newFilter: string) => void
+}
+export interface MenuBodyProps {
+    selectedItem?: MenuItemData
+    menuType: MenuType
+    items: MenuItemData[]
+    onSelect: (item: MenuItemData) => void
 }
 
 const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, className}) => (
@@ -30,9 +40,34 @@ const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, cla
     </div>
 )
 
-const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, className}) => {
+const MenuHeader: FC<MenuHeaderProps> = ({isFilter, filter, onFilter, className}) => (
+    <div> {
+        isFilter && <>
+        <div className={className}>
+            <input type="text" placeholder="Filter by name" onChange={(e) => onFilter(e.target.value)} value={filter} />
+            { filter !== "" && <div className="clear" onClick={()=>onFilter("")}><span>x</span></div> }
+        </div>
+        <div className="divider" /> </>
+    } </div>
+)
+
+const MenuBody: FC<MenuBodyProps> = ({selectedItem, menuType, items, onSelect, className}) =>  (
+    <div className={className}>
+        { items.map((item: MenuItemData, index: number) => 
+            <StyledMenuItem 
+                key={index} 
+                itemData={item} 
+                selected={selectedItem===item}
+                menuType={menuType}
+                onClick={() => onSelect(item)}
+            /> 
+        )}
+    </div>
+)
+
+const Menu: FC<MenuProps> = ({menuType, isFilter, items, onChange, className}) => {
     const [selectedItem, setSelectedItem] = useState<MenuItemData | undefined>(undefined);
-    const [filteredValue, setFilteredValue] = useState<MenuItemData[]>(items);
+    const [filteredItems, setFilteredItems] = useState<MenuItemData[]>(items);
     const [filter, setFilter] = useState<string>("");
 
     const onSelect = (item: MenuItemData) => {
@@ -40,29 +75,12 @@ const Menu: FC<MenuProps> = ({menuType, isFilter, isDivider, items, onChange, cl
     };
     const onFilter = (newFilter: string) => {
         setFilter(newFilter);
-        setFilteredValue(newFilter==="" ? items : items.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
+        setFilteredItems(newFilter==="" ? items : items.filter(item => item.name.toUpperCase().indexOf(newFilter.toUpperCase())>-1))
     }
     return (
         <div className={className}>
-            {  isFilter &&
-                <div className="menu-header">
-                    <input type="text" placeholder="Filter by name" onChange={(e) => onFilter(e.target.value)} value={filter} />
-                    { filter !== "" && <div className="clear" onClick={()=>onFilter("")}><span>x</span></div> }
-                </div>
-            } { 
-                isDivider && <div className="divider" /> 
-            }
-            <div className="menu-body">
-                { filteredValue.map((item: MenuItemData, index: number) => 
-                    <StyledMenuItem 
-                        key={index} 
-                        itemData={item} 
-                        selected={selectedItem===item}
-                        menuType={menuType}
-                        onClick={() => onSelect(item)}
-                    /> 
-                )}
-            </div>
+            <StyledMenuHeader isFilter={isFilter} filter={filter} onFilter={onFilter} />
+            <StyledMenuBody selectedItem={selectedItem} menuType={menuType} items={filteredItems} onSelect={onSelect} />
         </div>
     )
 }
@@ -77,48 +95,50 @@ const StyledMenu = styled(Menu)`
     box-shadow: 0px 4px 12px rgba(107, 133, 163, 0.06), 0px 4px 16px rgba(50, 132, 225, 0.16);
     border-radius: 4px;
 
-    .menu-header {
-        padding: 16px 21px;
-        position: relative;
+    .divider {
+        background: ${Colors.BG4};
+        height: 1px;
+    }
+`;
 
-        input {
+const StyledMenuHeader = styled(MenuHeader)`
+    padding: 16px 21px;
+    position: relative;
+
+    input {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        padding-right: 10px;
+        color: ${Colors.INPUT};
+
+        &:focus {
+            outline: none;
+        }
+        &::placeholder {
             font-family: 'Inter';
             font-style: normal;
             font-weight: normal;
             font-size: 14px;
             line-height: 20px;
-            padding-right: 10px;
             color: ${Colors.INPUT};
+        }
+    }
+    .clear {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: ${Colors.INPUT};
+    }
+`
 
-            &:focus {
-                outline: none;
-            }
-            &::placeholder {
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: normal;
-                font-size: 14px;
-                line-height: 20px;
-                color: ${Colors.INPUT};
-            }
-        }
-        .clear {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: ${Colors.INPUT};
-        }
-    }
-    .divider {
-        background: ${Colors.BG4};
-        height: 1px;
-    }
-    .menu-body {
-        padding: 10px 0px 10px;
-    }
-`;
+const StyledMenuBody = styled(MenuBody)`
+    padding: 10px 0px 10px;
+`
 
 const StyledMenuItem = styled(MenuItem)`
     display: flex;
