@@ -100,7 +100,7 @@ const StyledMenuItem = styled(MenuItem)`
         width: 22px;
         height: 22px;
         margin-right: 11px;
-        background-image: url(${props => typeof props.itemData !== "string" && props.itemData.avatar});
+        background-image: url(${props => props.itemData.avatar !== "" ? props.itemData.avatar : "https://image.flaticon.com/icons/svg/194/194938.svg"});
     }
     .name {
         margin-right: 11px;
