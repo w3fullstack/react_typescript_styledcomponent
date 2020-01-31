@@ -133,6 +133,12 @@ const StyledMenuHeader = styled(MenuHeader)`
         transform: translateY(-50%);
         cursor: pointer;
         color: ${Colors.INPUT};
+        &:hover {
+        opacity: 80%;
+        }
+        &:active {
+            opacity: 0%;
+        }
     }
 `
 
