@@ -4,10 +4,14 @@ import styled from 'styled-components'
 import { Colors } from '../lib/style-guide'
 import { classNames } from '../lib/classnames'
 import { User, MyStatus } from "../lib/common-types";
+import { Logo } from './shared/logo'
 
 export type MenuType = "mnu_owner" | "mnu_status";
 export type MenuItemData = User & MyStatus;
 
+export type AvatarProps = {
+    avatar?: string
+}
 export type MenuItemProps = {
     itemData: MenuItemData
     selected: boolean
@@ -32,9 +36,16 @@ export interface MenuBodyProps {
     onSelect: (item: MenuItemData) => void
 }
 
+const Avatar: FC<AvatarProps> = ({className}) => (
+    <div className={className}>
+        <Logo />
+        <div className="avatar" />
+    </div>
+)
+
 const MenuItem: FC<MenuItemProps> = ({itemData, selected, menuType, onClick, className}) => (
     <div className={selected ? classNames(className, "selected") : className} onClick={onClick}>
-        { menuType === "mnu_owner" && <div className="avatar"></div> }
+        { menuType === "mnu_owner" &&  <StyledAvatar avatar={itemData.avatar}/>}
         <div className="name">{itemData.name}</div>
         { menuType === "mnu_owner" && <div className="role">{itemData.role}</div> }
     </div>
@@ -101,6 +112,24 @@ const StyledMenu = styled(Menu)`
     }
 `;
 
+const StyledAvatar = styled(Avatar)`
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .avatar {
+        border-radius: 100px;
+        background-size: cover;
+        background-color: red;
+        resize: both;
+        width: 22px;
+        height: 22px;
+        background-image: url(${props => props.avatar !== undefined ? props.avatar : "../icons/logo.svg"});
+        position: relative;
+        right: 10px;
+    }
+`;
+
 const StyledMenuHeader = styled(MenuHeader)`
     padding: 16px 21px;
     position: relative;
@@ -153,16 +182,6 @@ const StyledMenuItem = styled(MenuItem)`
     padding: 0px 21px;
     cursor: pointer;
 
-    .avatar {
-        border-radius: 100px;
-        background-size: cover;
-        background-color: red;
-        resize: both;
-        width: 22px;
-        height: 22px;
-        margin-right: 11px;
-        background-image: url(${props => props.itemData.avatar !== "" ? props.itemData.avatar : "https://image.flaticon.com/icons/svg/194/194938.svg"});
-    }
     .name {
         margin-right: 11px;
         font-family: 'Inter UI';
@@ -192,6 +211,9 @@ const StyledMenuItem = styled(MenuItem)`
         }
         .role {
             color: #D1E3F8 !important;
+        }
+        .logo {
+            border-color: white;
         }
         animation: fadein 2s;
         -moz-animation: fadein 2s; /* Firefox */
