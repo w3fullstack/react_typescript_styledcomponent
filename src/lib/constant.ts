@@ -7,7 +7,7 @@ export const ownerMenuItems: User[] = [
   {id: 4, avatar: "", name: "Suzy Anderson", role: "Associate"}
 ];
 
-export const normalMenuItems: MyStatus[] = [
+export const statusMenuItems: MyStatus[] = [
     {id: 1, name: "My evaluations"}, 
     {id: 2, name: "My steps"}
 ]

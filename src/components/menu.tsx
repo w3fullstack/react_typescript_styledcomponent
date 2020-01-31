@@ -106,7 +106,7 @@ const StyledMenuHeader = styled(MenuHeader)`
     position: relative;
 
     input {
-        font-family: 'Inter';
+        font-family: 'Inter UI';
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
@@ -118,7 +118,7 @@ const StyledMenuHeader = styled(MenuHeader)`
             outline: none;
         }
         &::placeholder {
-            font-family: 'Inter';
+            font-family: 'Inter UI';
             font-style: normal;
             font-weight: normal;
             font-size: 14px;
@@ -165,7 +165,7 @@ const StyledMenuItem = styled(MenuItem)`
     }
     .name {
         margin-right: 11px;
-        font-family: 'Inter';
+        font-family: 'Inter UI';
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
@@ -173,7 +173,7 @@ const StyledMenuItem = styled(MenuItem)`
         color: #192533;
     }
     .role {
-        font-family: Inter;
+        font-family: 'Inter UI';
         font-style: normal;
         font-weight: normal;
         font-size: 12px;
