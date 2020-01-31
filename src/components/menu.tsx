@@ -3,11 +3,10 @@ import styled from 'styled-components'
 
 import { Colors } from '../lib/style-guide'
 import { classNames } from '../lib/classnames'
-import { User, MyStatus } from "../lib/common-types";
+import { MenuItemData } from "../lib/common-types";
 import { Logo } from './shared/logo'
 
 export type MenuType = "mnu_owner" | "mnu_status";
-export type MenuItemData = User & MyStatus;
 
 export type AvatarProps = {
     avatar?: string

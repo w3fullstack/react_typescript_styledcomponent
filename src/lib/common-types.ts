@@ -1,11 +1,6 @@
-export type User = {
+export type MenuItemData = {
     id: number;
     avatar?: string;
     name: string;
     role?: string;
 };
-export type MyStatus = {
-    id: number;
-    name: string;
-};
-  
